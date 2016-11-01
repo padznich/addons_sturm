@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<openerp>
+<data>
+
+    <record model="ir.ui.view" id="some_price.supplier">
+        <field name="name">some_price.extend.supplier</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@string='Sales &amp; Purchases']" position="inside">
+                <button string="Update prices" type="object" name="update_list_prices" />
+            </xpath>
+        </field>
+    </record>
+
+</data>
+</openerp>
