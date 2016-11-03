@@ -9,8 +9,8 @@
         <field name="inherit_id" ref="product.product_template_form_view"/>
         <field name="arch" type="xml">
             <field name="list_price" position="after">
-                <field name="some_price" invisible="1"/>
-                <button string="Update price" type="object" name="update_list_prices" />
+                <field name="some_price" invisible="True"/>
+                <button string="Update Sale prices" type="object" name="update_list_prices" />
             </field>
         </field>
     </record>

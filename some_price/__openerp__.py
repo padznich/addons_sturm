@@ -18,6 +18,6 @@
     ],
     "data": [
         "views/product_template_extend.xml",
-        # "views/partner_extend.xml",
+        "views/partner_extend.xml",
     ],
 }
