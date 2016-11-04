@@ -64,6 +64,7 @@ class SomePrice(models.Model):
 
             record.write({'list_price': _price})
             _logger.error('\033[1;32m{}\033[1;m'.format("=" * 10 + "list_price wrote in update_list_prices"))
+            _logger.error('\033[1;32m{}\033[1;m'.format(_price) + '\t_price')
             _logger.error('\033[1;32m{}\033[1;m'.format(record.list_price) + '\tSale Price')
 
 
@@ -97,3 +98,4 @@ class res_partner(models.Model):
             record.write({'list_price': _price})
             _logger.error('\033[1;32m{}\033[1;m'.format("+" * 10 + "list_price wrote in update_list_prices"))
             _logger.error('\033[1;32m{}\033[1;m'.format(record.list_price) + '\tSale Price')
+            _logger.error('\033[1;32m{}\033[1;m'.format(_price) + '\t_price')
