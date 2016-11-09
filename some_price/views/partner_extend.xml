@@ -9,7 +9,9 @@
         <field name="inherit_id" ref="base.view_partner_form"/>
         <field name="arch" type="xml">
             <xpath expr="//page[@string='Sales &amp; Purchases']" position="inside">
-                <button string="Update Sale prices" type="object" name="update_list_prices" />
+                <b>
+                    <button class="oe_inline oe_stat_button" icon="fa-pencil-square-o" string="Update Prices"  type="object" name="update_list_prices" />
+                </b>
             </xpath>
         </field>
     </record>
