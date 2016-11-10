@@ -33,6 +33,7 @@ class ListPriceCurrencyUpdate(models.Model):
                         record.write_date))
                     break
 
+            old_currency_rate = old_currency_rate or currency_objects[0].rate
             currency_differences = (currency_objects[0].rate - old_currency_rate) / 100.0
             if currency_differences < 0:
                 currency_differences = 0.0
