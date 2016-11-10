@@ -20,8 +20,8 @@ class ListPriceCurrencyUpdate(models.Model):
 
         for record in self.search([('active', '=', True)]):
 
-            _logger.info('\033[1;32m{}\033[1;m'.format("\nproduct id={} {} updated on {}\n".format(
-                record.id, record.name, record.write_date)))
+            _logger.info('\033[1;32m{}\033[1;m'.format("\nproduct id={} updated on {}\n".format(
+                record.id, record.write_date)))
 
             old_currency_rate = None
             for cur_rate in currency_objects:
@@ -45,11 +45,11 @@ class ListPriceCurrencyUpdate(models.Model):
 
             updated_price = record.standard_price * (1 + currency_differences)
 
-            _logger.info('\033[1;32m\nCost price for {}: {} \033[1;m'.format(record.name, record.standard_price) +
-                         '\033[1;32m\nUpdated Cost price for {}: {} \033[1;m'.format(record.name, updated_price))
+            _logger.info('\033[1;32m\nCost price for {}: {} \033[1;m'.format(record.id, record.standard_price) +
+                         '\033[1;32m\nUpdated Cost price for {}: {} \033[1;m'.format(record.id, updated_price))
 
             record.standard_price = updated_price
 
             _logger.info('\033[1;32m\nNew written Cost price for {}: {}\n\033[1;m'.format(
-                record.name,
+                record.id,
                 record.standard_price))
