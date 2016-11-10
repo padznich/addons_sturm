@@ -10,7 +10,7 @@
         <field name="arch" type="xml">
             <xpath expr="//page[@string='Procurements']" position="inside">
                 <b>
-                    <button class="oe_inline oe_stat_button" icon="fa-euro" string="Update Prices Rates" type="object" name="update_list_prices_currency" />
+                    <button class="oe_inline oe_stat_button" icon="fa-dollar" string="Update Rates" type="object" name="update_list_prices_currency" />
                 </b>
             </xpath>
         </field>
