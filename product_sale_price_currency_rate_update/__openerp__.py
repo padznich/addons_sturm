@@ -18,6 +18,7 @@
         "purchase",
     ],
     "data": [
-        "view.xml",
+        "views.xml",
+        "rules.xml",
     ],
 }
