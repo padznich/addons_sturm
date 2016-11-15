@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<openerp>
+<data>
+
+    <record model="ir.ui.view" id="product_method_cost._cost_method">
+        <field name="name">Set cost method</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@string='Procurements']" position="inside">
+
+                <b><button class="oe_inline oe_stat_button"
+                            icon="fa-wrench"
+                            string="Set real"
+                            type="object"
+                            name="update_cost_method_to_real" /></b>
+                <b><button class="oe_inline oe_stat_button"
+                            icon="fa-wrench"
+                            string="Set standard"
+                            type="object"
+                            name="update_cost_method_to_standard" /></b>
+                <b><button class="oe_inline oe_stat_button"
+                            icon="fa-wrench"
+                            string="Set average"
+                            type="object"
+                            name="update_cost_method_to_average" /></b>
+            </xpath>
+        </field>
+    </record>
+
+</data>
+</openerp>
