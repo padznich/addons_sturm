@@ -10,21 +10,24 @@
         <field name="arch" type="xml">
             <xpath expr="//page[@string='Procurements']" position="inside">
 
-                <b><button class="oe_inline oe_stat_button"
-                            icon="fa-wrench"
-                            string="Set real"
-                            type="object"
-                            name="update_cost_method_to_real" /></b>
-                <b><button class="oe_inline oe_stat_button"
-                            icon="fa-wrench"
-                            string="Set standard"
-                            type="object"
-                            name="update_cost_method_to_standard" /></b>
-                <b><button class="oe_inline oe_stat_button"
-                            icon="fa-wrench"
-                            string="Set average"
-                            type="object"
-                            name="update_cost_method_to_average" /></b>
+                <div>
+                    <span><h4>Set Costinggit Method for all the products</h4></span>
+                    <b><button class="oe_inline oe_stat_button"
+                                icon="fa-wrench"
+                                string="Real Price"
+                                type="object"
+                                name="update_cost_method_to_real" /></b>
+                    <b><button class="oe_inline oe_stat_button"
+                                icon="fa-wrench"
+                                string="Standard Price"
+                                type="object"
+                                name="update_cost_method_to_standard" /></b>
+                    <b><button class="oe_inline oe_stat_button"
+                                icon="fa-wrench"
+                                string="Average Price"
+                                type="object"
+                                name="update_cost_method_to_average" /></b>
+                </div>
             </xpath>
         </field>
     </record>
