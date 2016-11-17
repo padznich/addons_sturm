@@ -14,32 +14,29 @@ class UpdatePrice(models.Model):
 
     @api.model
     def action_update_price(self):
-        if self._context.get('active_model', False) == 'account.invoice':
-            _logger.info('Start price updating on purchase invoice change')
-            invoice = self.env['account.invoice'].browse(self._context['active_id'])
-            prods = [r.product_id for r in invoice.invoice_line]
+        _logger.info('Start price updating on exchange rate alteration')
+        # prods = [r.product_id for r in self.env['purchase.order.line'].search([])]
+        active_id = self._context.get('active_id', False)
+        if active_id:
+            prods = self.env['product.template'].search([('standard_price', '!=', 0), ('currency_id', '=', active_id)])
         else:
-            _logger.info('Start price updating on exchange rate alteration')
-            # prods = [r.product_id for r in self.env['purchase.order.line'].search([])]
-            active_id = self._context.get('active_id', False)
-            if active_id:
-                prods = self.env['product.product'].search([('standard_price', '!=', 0), ('currency_id', '=', active_id)])
-            else:
-                prods = self.env['product.product'].search([('standard_price', '!=', 0)])
+            prods = self.env['product.template'].search([('standard_price', '!=', 0)])
         for product in prods:
             if not self.product_valid(product):
                 continue
             currency = product.currency_id
+            # if product.id in [1098,4035,4034,4033]:
+            #     pass
             rates = [(r.name, r.rate) for r in self.env['res.currency.rate'].search([('currency_id', '=', currency.id)])]
             rates.sort(key=itemgetter(0))  # sort by date
-            new_rate_date = rates[1][0]
+            new_rate_date = rates[len(rates)-1][0]
             t = time.strptime(new_rate_date, '%Y-%m-%d %H:%M:%S')
             n = time.strptime(fields.Datetime.now(), '%Y-%m-%d %H:%M:%S')
             if (t.tm_yday, t.tm_year) != (n.tm_yday, n.tm_year):
                 _logger.info('Currency %s have no new rate for today.' % currency.name)
                 continue
-            new_rate = rates[1][1]
-            old_rate = rates[0][1]
+            new_rate = rates[len(rates)-1][1]
+            old_rate = rates[len(rates)-2][1]
             _logger.info('\n currency = %s \n old_rate = %s \n new_rate = %s' % (currency.name, old_rate, new_rate))
             standard_price = (product.standard_price/old_rate)*new_rate
             product.standard_price = standard_price
@@ -72,6 +69,22 @@ class UpdatePrice(models.Model):
         return True
             # raise ValidationError(error_msg)
 
+    @api.model
+    def action_update_price_on_product(self):
+        active_model = self._context.get('active_model', False)
+        if active_model == 'product.product':
+            _logger.info('Start price updating on product change')
+            product = self.env['product.product'].browse(self._context['active_id'])
+        elif active_model == 'product.template':
+            _logger.info('Start price updating on product template change')
+            product = self.env['product.template'].browse(self._context['active_id'])
+        seller_info = product.seller_ids.filtered(lambda reg: reg.use_price_list is True)[0]
+        price_list = seller_info.name.property_product_pricelist
+        mult = price_list.version_id.items_id.price_discount
+        surcharge = price_list.version_id.items_id.price_surcharge
+        product.list_price = product.standard_price * (1 + mult) + surcharge
+        _logger.info('\n Product = %s \n new_cost_price = %s \n new_sale_price = %s' % (product.name, product.standard_price, product.list_price))
+        return
 
 class Product(models.Model):
     _inherit = 'product.template'
